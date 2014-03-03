@@ -28,6 +28,7 @@
 ;;; Code:
 
 (defun lightbox-doc ()
+  "Create lightbox for the function at point."
   (interactive)
   (let ((fn (function-called-at-point)))
     (lightbox-create-box-overlay
