@@ -81,7 +81,10 @@ Note that the summary text will also be fill-paragraphed and justified."
           (buffer-substring (point-min)
                             (save-excursion
                               (beginning-of-buffer)
-                              (dotimes (i 3 (point))
+                              (dotimes (i 3 (funcall (lambda ()
+                                                       (when (string= "\n" (thing-at-point 'line))
+                                                         (backward-char))
+                                                       (point))))
                                 (fill-paragraph)
                                 (forward-paragraph)))))))))
 
