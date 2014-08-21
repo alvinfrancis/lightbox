@@ -50,10 +50,8 @@
 
 (defun lightbox-create-box-overlay (text pos)
   "Create a lightbox overlay at POS containing TEXT."
-  (let* ((o (make-overlay pos pos))
-         (text (lightbox--create-box-text text)))
-    (overlay-put o
-                 'before-string text)))
+  (let ((o (make-overlay pos pos)))
+    (overlay-put o 'before-string text)))
 
 ;; Helper functions
 (defun lightbox--maximum-line-length (lines)
