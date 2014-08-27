@@ -88,6 +88,10 @@ Note that the summary text will also be fill-paragraphed and justified."
                                 (fill-paragraph)
                                 (forward-paragraph)))))))))
 
+(defun lightbox-remove-all-overlays ()
+  (interactive)
+  (remove-overlays (point-min) (point-max) 'lightbox t))
+
 (provide 'lightbox)
 
 ;;; lightbox.el ends here
