@@ -103,8 +103,19 @@ Note that the summary text will also be fill-paragraphed and justified."
                                 (forward-paragraph)))))))))
 
 (defun lightbox-remove-all-overlays ()
+  "Remove all lightboxes in buffer."
   (interactive)
-  (remove-overlays (point-min) (point-max) 'lightbox t))
+  (lightbox--remove-overlays (point-min) (point-max)))
+
+(defun lightbox-remove-next-line-overlay ()
+  "Remove lightbox anchored to current line."
+  (interactive)
+  (lightbox--remove-overlays
+   (save-excursion
+     (beginning-of-line)
+     (point))
+   (lightbox--anchor-fn)))
+
 (defun lightbox--remove-overlays (start end)
   "Remove lightbox overlays from START to END."
   (remove-overlays
