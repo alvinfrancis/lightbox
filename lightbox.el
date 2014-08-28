@@ -44,13 +44,6 @@
      (lightbox--create-box-text (lightbox--get-function-summary fn))
      (lightbox--anchor-fn))))
 
-(defun lightbox--anchor-fn ()
-  "Function to run which will return the anchor point for
-  lightbox-doc."
-  (save-excursion
-    (forward-line)
-    (point)))
-
 (defun lightbox--create-box-text (text)
   "Return text with attendant properties."
   (let* ((lines (split-string text "\n"))
@@ -122,6 +115,12 @@ Note that the summary text will also be fill-paragraphed and justified."
    start end
    'lightbox t))
 
+(defun lightbox--anchor-fn ()
+  "Function to run which will return the anchor point for
+  lightbox-doc."
+  (save-excursion
+    (forward-line)
+    (point)))
 
 (provide 'lightbox)
 
