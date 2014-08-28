@@ -31,11 +31,24 @@
   "Create lightbox for the function at point."
   (interactive)
   (let ((fn (function-called-at-point)))
+    (let ((start (save-excursion (beginning-of-line) (point)))
+          (end (save-excursion (end-of-line) (point))))
+      (put-text-property
+       start end 'modification-hooks
+       (list (lambda (beg end)
+               (remove-overlays
+                (lightbox--anchor-fn) (lightbox--anchor-fn)
+                'lightbox t)))))
     (lightbox-create-box-overlay
      (lightbox--create-box-text (lightbox--get-function-summary fn))
-     (save-excursion
-       (forward-line)
-       (point)))))
+     (lightbox--anchor-fn))))
+
+(defun lightbox--anchor-fn ()
+  "Function to run which will return the anchor point for
+  lightbox-doc."
+  (save-excursion
+    (forward-line)
+    (point)))
 
 (defun lightbox--create-box-text (text)
   "Return text with attendant properties."
