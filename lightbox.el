@@ -41,16 +41,24 @@
                 (lightbox--anchor-fn) (lightbox--anchor-fn)
                 'lightbox t)))))
     (lightbox-create-box-overlay
-     (lightbox--create-box-text (lightbox--get-function-summary fn))
+     (lightbox--create-box-text (lightbox--get-function-summary fn)
+                                (- (save-excursion
+                                     (beginning-of-thing 'symbol)
+                                     (point))
+                                   (save-excursion
+                                     (beginning-of-line)
+                                     (point))))
      (lightbox--anchor-fn))))
 
-(defun lightbox--create-box-text (text)
+(defun* lightbox--create-box-text (text &optional (offset 0))
   "Return text with attendant properties."
   (let* ((lines (split-string text "\n"))
          (max-line-length (lightbox--maximum-line-length lines)))
     (concat
      (mapconcat (lambda (x)
-                  (lightbox--create-box-line x (+ max-line-length 2)))
+                  (concat
+                   (make-string offset ?\ )
+                   (lightbox--create-box-line x (+ max-line-length 2))))
                 (split-string text "\n")
                 "\n")
      "\n")))
