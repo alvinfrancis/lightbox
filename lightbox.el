@@ -33,6 +33,7 @@
   (let ((fn (function-called-at-point)))
     (let ((start (save-excursion (beginning-of-line) (point)))
           (end (save-excursion (end-of-line) (point))))
+      (put-text-property start end 'lightbox t)
       (put-text-property
        start end 'modification-hooks
        (list (lambda (beg end)
@@ -104,6 +105,12 @@ Note that the summary text will also be fill-paragraphed and justified."
 (defun lightbox-remove-all-overlays ()
   (interactive)
   (remove-overlays (point-min) (point-max) 'lightbox t))
+(defun lightbox--remove-overlays (start end)
+  "Remove lightbox overlays from START to END."
+  (remove-overlays
+   start end
+   'lightbox t))
+
 
 (provide 'lightbox)
 
