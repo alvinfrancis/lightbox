@@ -30,6 +30,8 @@
 (defun lightbox-doc ()
   "Create lightbox for the function at point."
   (interactive)
+  (when (plist-get (text-properties-at (point)) 'lightbox)
+    (lightbox-remove-next-line-overlay))
   (let ((fn (function-called-at-point)))
     (let ((start (save-excursion (beginning-of-line) (point)))
           (end (save-excursion (end-of-line) (point))))
