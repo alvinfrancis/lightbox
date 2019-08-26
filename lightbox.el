@@ -50,7 +50,7 @@
                                      (point))))
      (lightbox--anchor-fn))))
 
-(defun* lightbox--create-box-text (text &optional (offset 0))
+(cl-defun lightbox--create-box-text (text &optional (offset 0))
   "Return text with attendant properties."
   (let* ((lines (split-string text "\n"))
          (max-line-length (lightbox--maximum-line-length lines)))
@@ -71,7 +71,7 @@
 
 ;; Helper functions
 (defun lightbox--maximum-line-length (lines)
-  (loop for line in lines maximizing (length line)))
+  (cl-loop for line in lines maximizing (length line)))
 
 (defun lightbox--create-box-line (text length)
   (let* ((len (length text))
