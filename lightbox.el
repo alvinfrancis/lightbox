@@ -78,7 +78,7 @@
          (offset (- length len)))
     (propertize (concat " " text
                         (make-string offset ? ))
-                'face font-lock-warning-face)))
+                'face font-lock-doc-face)))
 
 (defun lightbox--get-function-summary (function)
   "Return the first few paragraphs of the documentation of FUNCTION (a symbol).
